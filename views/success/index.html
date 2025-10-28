@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>CONŌ CAFĒ® | Pedido Confirmado</title>
+    lin
+    <link rel="stylesheet" href="../styles/styles.css" />
+  </head>
+  <body>
+    <main class="success-container">
+      <h1 class="headline">☕ Pedido Confirmado</h1>
+      <p class="subtext">
+        Gracias por elegir CONŌ CAFĒ®. Tu experiencia comienza aquí.
+      </p>
+
+      <section class="order-summary">
+        <h2>🧾 Detalles del pedido</h2>
+        <!-- <ul>
+          <% items.forEach(item => { %>
+          <li>
+            <%= `${item.description} — $${(item.amount_total / 100).toFixed(2)} × ${item.quantity}` %>
+          </li>
+          <% }) %>
+        </ul> -->
+        <p class="total">
+          <strong>Total:</strong> <%= `$${(totalAmount / 100).toFixed(2)}` %>
+        </p>
+        <p class="order-id">Pedido confirmado: <strong><%= `${session_id}` %></strong></p>
+        <p class="email-note">
+          Un recibo ha sido enviado a: <strong><%= `${customer_email}` %></strong>
+        </p>
+      </section>
+
+      <a href="/" class="btn">Volver al inicio</a>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CONŌ CAFĒ</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="../styles/output.css" />
+    <link rel="stylesheet" href="../styles/styles.css" />
+  </head>
+  <body class="bg-[#f5f3ef] text-[#1B1013] font-poppins antialiased">
+    <!-- Header -->
+    <header
+      class="fixed top-0 left-0 w-full bg-[#1B1013]/95 backdrop-blur-sm text-white z-50 shadow-md"
+    >
+      <nav class="flex justify-between items-center px-6 py-4">
+        <h1 class="text-[#39FF14] font-bold text-xl">CONŌ CAFĒ®</h1>
+        <ul class="flex gap-6 text-sm font-semibold">
+          <li><a href="#inicio" class="hover:text-[#39FF14]">INICIO</a></li>
+          <li><a href="#shop" class="hover:text-[#39FF14]">SHOP</a></li>
+          <li>
+            <a href="#nosotros" class="hover:text-[#39FF14]">CONŌ CAFĒ</a>
+          </li>
+          <li><a href="#contacto" class="hover:text-[#39FF14]">CONTACTO</a></li>
+          <li>
+            <a
+              href="../login/index.html"
+              aria-label="Ir a Login o Registrarse"
+              class="hover:text-[#39FF14] font-semibold text-sm"
+            >
+              LOGIN
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Hero -->
+    <section
+      id="inicio"
+      class="min-h-screen flex flex-col md:flex-row items-center justify-center bg-[#f5f3ef] px-6 pt-20"
+    >
+      <div class="text-center md:text-left max-w-lg">
+        <h2
+          class="text-4xl md:text-5xl font-bold mb-4 text-[#78350f] drop-shadow-[0_0_6px_#39FF14]"
+        >
+          Specialty Coffee. Not Just Coffee.
+        </h2>
+        <p class="text-lg mb-6">
+          From Boconó to your cup. Discover the craft behind every bean.
+        </p>
+        <a
+          href="#shop"
+          class="bg-[#39FF14] text-black font-bold px-6 py-3 rounded-md hover:bg-[#1B1013] hover:text-white transition shadow-[0_0_10px_#39FF14]"
+        >
+          Shop All
+        </a>
+      </div>
+      <div class="mt-10 md:mt-0 md:ml-12 w-full h-48">
+        <img
+          src="../assests/cono_background.png"
+          alt="Conó Café Bag"
+          class="w-full object-cover drop-shadow-lg"
+          style="height: 45%"
+        />
+      </div>
+    </section>
+
+    <!-- Misión -->
+    <section class="py-16 px-6 md:px-20 text-center">
+      <h2
+        class="text-2xl font-bold text-[#39FF14] mb-6"
+        data-aos="fade-in"
+        data-aos-delay="200"
+      >
+        OUR MISSION
+      </h2>
+      <p
+        class="text-lg md:text-xl max-w-3xl mx-auto mb-4"
+        data-aos="fade-in"
+        data-aos-delay="200"
+      >
+        TO EDUCATE OUR COMMUNITIES...
+      </p>
+      <p class="text-lg md:text-xl max-w-3xl mx-auto">
+        TO EDUCATE OUR COMMUNITIES TO UNDERSTAND THE BEAUTY AND CRAFTSMANSHIP
+        INVOLVED IN YOUR CUP OF COFFEE.
+      </p>
+      <div>
+        <img
+          src="../assests/mission.png"
+          alt="Our Mission"
+          class="w-full max-w-2xl mx-auto mt-8 rounded-lg shadow-lg"
+          data-aos="zoom-in"
+          data-aos-delay="300"
+        />
+      </div>
+    </section>
+
+    <!-- Historia -->
+    <section id="nosotros" class="py-16 px-6 md:px-20 text-center">
+      <h2 class="text-2xl font-bold mb-6 text-[#39FF14]">OUR ROOTS</h2>
+      <p class="max-w-3xl mx-auto text-lg">
+        🌄 Coffee with Soul from Boconó, Venezuela From the lush mountains of
+        Boconó, we grow coffee with purpose. At over 1,200 meters above sea
+        level, in rich soil and perfect climate, our beans are born. Here,
+        coffee isn’t just a drink—it’s a tradition that’s been alive for more
+        than 200 years.
+        <br />
+        <br />
+        ☕ What Makes Our Coffee Special? Protected origin: Our coffee is the
+        first in Venezuela to earn a Protected Geographical Indication (PGI), a
+        mark of quality and authenticity. Unique flavor: Thanks to Boconó’s
+        altitude and soil, our coffee offers citrus notes like lime, mandarin,
+        and peach. Hand-picked with care: Every bean is selected with respect
+        for the land and love for the craft. Community-driven: We work with
+        local cooperatives that use sustainable practices and support regional
+        farmers.
+        <br />
+        <br />
+        🌱 More Than Coffee—A Connection Every cup tells a story of heritage,
+        dedication, and pride. Our coffee connects people to nature, to culture,
+        and to moments worth sharing.
+      </p>
+    </section>
+
+    <!-- Shop -->
+    <section id="shop" class="py-20 px-6 md:px-20 text-[#1B1013] bg-[#f5f3ef]">
+      <h2 class="text-2xl font-bold text-[#39FF14] text-center mb-10">
+        OUR COFFEE
+      </h2>
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-items-center"
+      >
+        <div
+          class="p-6 rounded-lg shadow-lg max-w-xs w-full text-center hover:shadow-xl transition-shadow duration-300"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          <img
+            src="../assests/package.png"
+            alt="Coffee Bag"
+            class="w-40 h-40 object-contain mx-auto mb-4"
+            style="width: 50%"
+          />
+          <h3 class="text-lg font-bold mb-2">Boconó Blend</h3>
+          <p class="text-sm mb-4">Smooth, earthy, and bold. 100% Arabica.</p>
+          <a
+            href="../shop_view"
+            class="inline-block bg-[#39FF14] text-black font-bold px-4 py-2 rounded-md hover:bg-[#1B1013] hover:text-white transition duration-300 shadow-[0_0_10px_#39FF14]"
+            >Buy Now</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- Contacto -->
+    <section
+      id="contacto"
+      class="py-16 px-6 md:px-20 bg-[#1B1013] text-white mb-20"
+    >
+      <h2 class="text-2xl font-bold text-[#39FF14] text-center mb-8">
+        CONTACT US
+      </h2>
+      <div class="flex justify-center">
+        <form
+          action="/api/contact"
+          method="POST"
+          class="w-full mx-auto space-y-4 px-4 sm:w-11/12 md:w-3/4 lg:w-2/3 xl:w-3/5 max-w-4xl"
+          style="width: 75%;"
+        >
+          <div>
+            <label
+              for="name"
+              class="block mb-2 text-sm font-semibold text-[#39FF14]"
+              >Your Name</label
+            >
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              class="w-full px-3 py-2 text-sm text-black bg-white border border-[#39FF14] rounded-md focus:outline-none focus:ring-2 focus:ring-[#39FF14]"
+            />
+          </div>
+          <div>
+            <label
+              for="email"
+              class="block mb-2 text-sm font-semibold text-[#39FF14]"
+              >Your Email</label
+            >
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              class="w-full px-3 py-2 text-sm text-black bg-white border border-[#39FF14] rounded-md focus:outline-none focus:ring-2 focus:ring-[#39FF14]"
+            />
+          </div>
+          <div>
+            <label
+              for="message"
+              class="block mb-2 text-sm font-semibold text-[#39FF14]"
+              >Your Message</label
+            >
+            <textarea
+              id="message"
+              name="message"
+              rows="4"
+              required
+              class="w-full px-3 py-2 text-sm text-black bg-white border border-[#39FF14] rounded-md focus:outline-none focus:ring-2 focus:ring-[#39FF14] resize-none"
+            ></textarea>
+          </div>
+          <div class="text-center">
+            <button
+              type="submit"
+              class="bg-[#39FF14] text-black font-bold px-4 py-2 text-sm rounded-md hover:bg-white hover:text-[#1B1013] transition duration-300 shadow-[0_0_10px_#39FF14]"
+            >
+              Send Message
+            </button>
+          </div>
+          <div
+            id="confirmationMessage"
+            class="hidden text-center text-[#39FF14] font-semibold mt-6"
+          >
+            ¡Gracias por tu mensaje! Te contactaremos pronto ☕
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center py-6 bg-[#1B1013] text-white text-sm">
+      <p>&copy; 2025 CONŌ CAFĒ. All rights reserved.</p>
+      <div class="mt-2">
+        <select
+          class="text-white border border-[#39FF14] px-2 py-1 rounded-md bg-[#1B1013]"
+        >
+          <option>Venezuela | VES</option>
+          <option>España | EUR</option>
+          <option>USA | USD</option>
+        </select>
+      </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+      AOS.init();
+
+      const form = document.querySelector("form");
+      const confirmation = document.getElementById("confirmationMessage");
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        form.reset();
+        confirmation.classList.remove("hidden");
+        confirmation.classList.add("block");
+        setTimeout(() => {
+          confirmation.classList.add("hidden");
+        }, 5000);
+      });
+    </script>
+    <script src="index.js"></script>
+  </body>
+</html>
