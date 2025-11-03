@@ -115,3 +115,17 @@ function addToCart(product){
   window.dispatchEvent(new CustomEvent('cart:updated', { detail: { cart } }));
   return true;
 }
+
+//carrito 
+function updateCartCount() {
+  const cart = getCart();
+  const totalItems = Object.values(cart).reduce((sum, item) => sum + item.qty, 0);
+  const countEl = document.getElementById('cart-count');
+  if (countEl) countEl.textContent = totalItems;
+}
+
+// Actualiza al cargar
+updateCartCount();
+
+// Escucha cambios en el carrito
+window.addEventListener('cart:updated', updateCartCount);

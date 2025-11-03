@@ -340,3 +340,87 @@ footer select {
     display: block;
   }
 }
+
+/* ==========================
+   Estilos específicos: página de éxito
+   ========================== */
+.success-container {
+  max-width: 900px;
+  margin: 6rem auto 4rem; /* deja espacio para el header fijo */
+  background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(245,243,239,0.95));
+  border-radius: 12px;
+  padding: 2.25rem;
+  box-shadow: 0 10px 30px rgba(27,16,19,0.12);
+  text-align: center;
+}
+.success-container .headline {
+  font-size: 2rem;
+  color: var(--dark);
+  margin-bottom: 0.25rem;
+  letter-spacing: 0.6px;
+}
+.success-container .subtext {
+  color: #6b6b6b;
+  margin-bottom: 1.25rem;
+}
+.order-summary {
+  background: #fff;
+  border-radius: 10px;
+  padding: 1.25rem 1rem;
+  margin: 1rem auto 1.5rem;
+  max-width: 720px;
+  box-shadow: 0 6px 18px rgba(27,16,19,0.06);
+  text-align: left;
+}
+.order-summary h2 {
+  margin: 0 0 0.75rem 0;
+  color: var(--dark);
+}
+.order-summary ul {
+  list-style: none;
+  padding: 0.25rem 0 0.5rem 0;
+  margin: 0 0 0.75rem 0;
+}
+.order-summary ul li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px dashed #eee;
+  font-weight: 600;
+  color: #222;
+}
+.order-summary ul li:last-child { border-bottom: none; }
+.order-summary .total {
+  font-size: 1.125rem;
+  margin-top: 0.5rem;
+  text-align: right;
+}
+.order-summary .order-id,
+.order-summary .email-note {
+  color: #444;
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
+}
+.btn {
+  display: inline-block;
+  background: linear-gradient(90deg, var(--accent-green), #6dfc82 60%);
+  color: #07140a;
+  padding: 0.75rem 1.25rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+  box-shadow: 0 6px 18px rgba(4,249,67,0.16);
+  transition: transform .15s ease, box-shadow .15s ease, opacity .15s;
+}
+.btn:hover { transform: translateY(-3px); opacity: 0.98; }
+
+/* Small screens: ajusta layout */
+@media (max-width: 640px) {
+  .success-container { margin: 5.5rem 1rem; padding: 1.25rem; }
+  .order-summary ul li { font-size: 0.95rem; }
+  .hero-image img { width: 100%; }
+}
+
+/* Accessibility tweaks */
+.order-summary ul li, .order-summary .total { line-height: 1.4; }

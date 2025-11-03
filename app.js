@@ -14,6 +14,8 @@ const checkRouter = require('./controllers/checkout');
 const cancel = require('./controllers/cancel');
 const adminRouter = require('./controllers/admin');
 const auth = require('./controllers/auth');
+const successCheckout = require('./controllers/success');
+//const ratesRouter = require('./controllers/rates');
 
 
 
@@ -48,6 +50,10 @@ app.use('/shop_view', express.static(path.resolve('views', 'shop_view')))
 //RUTAS BACKEND
 app.use('/api/contact', contactRouter);
 app.use('/api/checkout', checkRouter);
+// endpoint que devuelve detalles de la sesión tras checkout (JSON)
+app.use(successCheckout);
+// rates proxy (currency conversion) - avoids CORS issues by calling upstream from server
+//app.use('/api', ratesRouter);
 app.use('/api/admin/products', express.json(), adminRouter);
 // auth endpoints
 app.use('/api/auth', express.json(), auth.router);

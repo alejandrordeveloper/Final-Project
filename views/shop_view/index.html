@@ -8,6 +8,10 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="../styles/output.css" />
     <link rel="stylesheet" href="../styles/styles.css" />
@@ -18,7 +22,14 @@
       class="fixed top-0 left-0 w-full bg-[#1B1013]/95 backdrop-blur-sm text-white z-50 shadow-md"
     >
       <nav class="flex justify-between items-center px-6 py-4">
-  <h1 class="font-bold text-xl"><a href="/" aria-label="Ir al inicio" class="text-[#39FF14] hover:underline">CONŌ CAFĒ®</a></h1>
+        <h1 class="font-bold text-xl">
+          <a
+            href="/"
+            aria-label="Ir al inicio"
+            class="text-[#39FF14] hover:underline"
+            >CONŌ CAFĒ®</a
+          >
+        </h1>
         <ul class="flex gap-6 text-sm font-semibold">
           <li><a href="/" class="hover:text-[#39FF14]">INICIO</a></li>
           <!-- <li><a href="/shop_cart" class="hover:text-[#39FF14]">SHOP</a></li> -->
@@ -27,7 +38,27 @@
           </li> -->
           <!-- <li><a href="#contacto" class="hover:text-[#39FF14]">CONTACTO</a></li> -->
           <li>
-            <a href="../login/index.html" aria-label="Ir a Login o Registrarse" class="hover:text-[#39FF14] font-semibold text-sm">
+            <a
+              href="/home_cart"
+              aria-label="Ver carrito"
+              class="relative hover:text-[#39FF14]"
+            >
+              <i class="fas fa-shopping-cart text-lg"></i>
+              <span
+                id="cart-count"
+                class="absolute -top-2 -right-3 text-xs font-bold px-2 py-0.5 rounded-full shadow"
+              >
+                0
+              </span>
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="../login/index.html"
+              aria-label="Ir a Login o Registrarse"
+              class="hover:text-[#39FF14] font-semibold text-sm"
+            >
               LOGIN
             </a>
           </li>
@@ -51,21 +82,27 @@
     <!-- Grid de productos -->
     <section id="products" class="py-12 bg-[#f5f3ef]">
       <div class="max-w-6xl mx-auto px-6">
-        <h3 class="text-2xl font-bold text-[#39FF14] mb-6">Nuestros productos</h3>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"></div>
+        <h3 class="text-2xl font-bold text-[#39FF14] mb-6">
+          Nuestros productos
+        </h3>
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
+        ></div>
       </div>
     </section>
-
     <script>
       // helper para reemplazar imágenes si faltan
       function setPlaceholder(el, text) {
         try {
           el.onerror = null;
-          const svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect width="100%" height="100%" fill="#fffaf0"/>' +
-                      '<text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="16" fill="#999">' + (text||'Imagen no disponible') + '</text></svg>';
-          el.src = 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+          const svg =
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect width="100%" height="100%" fill="#fffaf0"/>' +
+            '<text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="16" fill="#999">' +
+            (text || "Imagen no disponible") +
+            "</text></svg>";
+          el.src = "data:image/svg+xml;utf8," + encodeURIComponent(svg);
         } catch (e) {
-          el.src = '';
+          el.src = "";
         }
       }
     </script>
