@@ -77,8 +77,9 @@ nav ul li a:hover {
   justify-content: center;
   align-items: center;
   gap: 2rem;
-  padding: 0 1rem;
-  margin-top: 4rem;
+  /* dejar espacio para el header fijo: usar padding-top en lugar de margin-top
+     y mantenerlo más ajustado para versiones móviles */
+  padding: 3.25rem 1rem 1rem 1rem;
 }
 .hero-text {
   max-width: 40ch;
@@ -111,6 +112,49 @@ nav ul li a:hover {
   /* max-width: 100%; */
   width: 50%;
   box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+}
+
+/* Mejoras específicas para la imagen del hero en la sección #inicio */
+#inicio > div:nth-child(2) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Imagen hero: ocupar más ancho en escritorio pero mantener limits y buen responsive */
+#inicio > div:nth-child(2) img {
+  /* Ignorar estilos inline de height en el HTML */
+  height: auto !important;
+  /* Ocupa un buen porcentaje del área secundaria; no exceder max-width */
+  width: min(80%, 820px);
+  max-height: 520px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(27,16,19,0.12);
+  transition: transform .22s ease, box-shadow .22s ease;
+}
+
+#inicio > div:nth-child(2) img:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 18px 40px rgba(27,16,19,0.16);
+}
+
+@media (min-width: 1024px) {
+  /* En pantallas grandes queremos que ocupe aún más presencia */
+  #inicio > div:nth-child(2) img { width: min(72%, 920px); max-height: 620px; }
+}
+
+@media (max-width: 640px) {
+  /* en móviles ocupar menos alto y ancho completo del contenedor */
+  #inicio > div:nth-child(2) img {
+    max-width: 100%;
+    width: 92%;
+    max-height: 220px;
+    border-radius: 8px;
+  }
+  /* ajustar el layout del hero para que el texto quede más cerca de la navbar */
+  /* #inicio { padding-top: 6.25rem; } */
 }
 
 /* 6. Secciones generales */
@@ -424,3 +468,271 @@ footer select {
 
 /* Accessibility tweaks */
 .order-summary ul li, .order-summary .total { line-height: 1.4; }
+
+/* ==========================
+   Estilos específicos: vista de tienda (shop_view)
+   Aplica a: views/shop_view/index.html + index.js
+   ========================== */
+#products {
+  padding-top: 5.5rem; /* dejar espacio para header fijo */
+}
+
+#products .grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(1, 1fr);
+  align-items: start;
+}
+@media (min-width: 640px) {
+  #products .grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1024px) {
+  #products .grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+#products article.text-center {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 6px 18px rgba(27,16,19,0.06);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+}
+
+#products article h4 {
+  font-size: 1rem;
+  color: var(--text-dark);
+  margin: 0.5rem 0 0.25rem 0;
+  font-weight: 600;
+}
+
+#products article .text-sm { color: #666; }
+
+#products article img {
+  max-width: 100%;
+  max-height: 200px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+.add-to-cart-btn {
+  font-weight: 700;
+  background-color: #39FF14;
+  padding: 0.45rem 0.85rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: transform .12s ease, box-shadow .12s ease, opacity .12s;
+}
+.add-to-cart-btn:active { transform: translateY(1px); }
+.add-to-cart-btn[disabled] { opacity: 0.6; cursor: not-allowed; }
+
+/* Carrito: contador en el header */
+#cart-count {
+  background: var(--accent-green);
+  color: #000;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+}
+
+/* Ajustes para textos largos en tarjetas */
+#products article .text-sm.text-gray-600 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Pequeños refinamientos responsivos */
+@media (max-width: 420px) {
+  #products article h4 { font-size: 0.95rem; }
+  #products article .text-sm { font-size: 0.85rem; }
+}
+
+/* ==========================
+   Estilos específicos: página Carrito (home_cart)
+   Aplica a: views/home_cart/index.html + index.js
+   ========================== */
+main.max-w-3xl {
+  max-width: 48rem; /* fallback si Tailwind no carga */
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+#cartItems {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* espacio entre items */
+}
+
+#cartItems > div {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: #552c07;
+  color: #ffffff;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  flex-wrap: wrap;
+  margin-bottom: 0; /* controlado por gap en el contenedor */
+}
+
+#cartItems > div img {
+  width: 8rem;
+  height: 8rem;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+#cartItems > div .flex-1 {
+  flex: 1 1 220px;
+  min-width: 180px;
+}
+
+#cartItems > div .flex.flex-col.items-end {
+  min-width: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.decrease, .increase {
+  background: #ffffff;
+  color: #000000;
+  border: none;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 700;
+}
+.decrease:active, .increase:active { transform: translateY(1px); }
+
+.remove {
+  background: transparent;
+  color: #ffffff;
+  text-decoration: underline;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+#cartSummary {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+#cartSummary .text-sm { color: #4b5563; }
+
+/* Mobile: apilar items y ajustar imágenes */
+@media (max-width: 640px) {
+  #cartItems > div { flex-direction: column; align-items: stretch; }
+  #cartItems > div img { width: 100%; height: auto; max-height: 240px; }
+  #cartItems > div .flex.flex-col.items-end { align-items: flex-start; }
+  #cartSummary { text-align: left; }
+}
+
+/* Accesibilidad: focus state para botones */
+.decrease:focus, .increase:focus, .remove:focus {
+  outline: 3px solid rgba(57,255,20,0.18);
+  outline-offset: 2px;
+}
+
+/* ==========================
+   Fix: hover/ focus del botón "Proceder al Pago"
+   Se aplica a: views/home_cart/index.html -> #payButton
+   Soluciona contraste oscuro en hover (texto ilegible)
+   ========================== */
+#payButton {
+  transition: background-color .18s ease, color .12s ease, transform .12s ease, box-shadow .12s ease;
+}
+
+#payButton:hover,
+#payButton:focus {
+  /* mantenemos un fondo oscuro para consistencia, pero forzamos texto blanco */
+  background-color: #1B1013; /* color oscuro usado en header */
+  color: #ffffff !important;
+  box-shadow: 0 8px 24px rgba(27,16,19,0.22);
+  transform: translateY(-2px);
+}
+
+#payButton:active {
+  transform: translateY(0);
+}
+
+#payButton:focus {
+  outline: 3px solid rgba(57,255,20,0.12);
+  outline-offset: 3px;
+}
+
+
+
+
+
+
+
+/* Small-screen overrides: ensure hero doesn't create too much gap under the fixed navbar */
+@media (max-width: 640px) {
+  #inicio {
+    padding: 8.25rem 1rem !important;
+    min-height: auto !important;
+    gap: 1rem !important;
+  }
+  /* Reduce large utility margins (e.g., mt-10) that add extra vertical space */
+  #inicio > .mt-10 {
+    margin-top: 0.5rem !important;
+  }
+  /* Ensure heading has no extra top padding */
+  #inicio h2 { padding-top: 0 !important; margin-top: 0 !important; }
+}
+
+/* Tablet / iPad specific adjustments (landscape & portrait between 768px and 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  /* Tablet / iPad: two-column but more compact — reduce vertical footprint */
+  #inicio {
+    flex-wrap: nowrap;
+    padding: 1.25rem 1rem;
+    gap: 1rem;
+    /* dejar el hero más pequeño en tablets */
+    min-height: 48vh;
+    align-items: center;
+  }
+
+  /* Left column: texto más compacto */
+  #inicio .max-w-lg {
+    flex: 0 0 48%;
+    max-width: 48%;
+    text-align: left;
+  }
+  #inicio .max-w-lg h2 { font-size: 2rem; line-height: 1.12; }
+
+  /* Right column: imagen con límites más estrictos en tablet */
+  #inicio > div:nth-child(2) {
+    flex: 0 0 52%;
+    max-width: 52%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #inicio > div:nth-child(2) img {
+    width: 100%;
+    max-width: 420px;
+    max-height: 360px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+
+  /* Reduce vertical spacing introducido por utilidades en tablet */
+  #inicio > .mt-10 { margin-top: 0 !important; }
+}

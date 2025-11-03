@@ -54,7 +54,7 @@ async function loadProducts(){
         <div class="mt-3 flex items-center justify-center gap-3">
           <div class="text-sm text-gray-700">${stock > 0 ? 'Stock: ' + stock : '<span class="text-red-600 font-semibold">Agotado</span>'}</div>
           <button data-id="${escapeHtml(p._id)}" class="add-to-cart-btn inline-flex items-center px-3 py-1 rounded ${stock>0? 'bg-[#39FF14] text-black hover:brightness-90' : 'bg-gray-300 text-gray-600 cursor-not-allowed'}" ${stock>0? '': 'disabled'}>
-            ${stock>0? 'Agregar al carrito' : 'Agotado'}
+            ${stock>0? 'Add to cart' : 'Agotado'}
           </button>
         </div>
       `;
@@ -76,7 +76,7 @@ async function loadProducts(){
           btn.classList.remove('bg-[#39FF14]');
           btn.classList.add('bg-green-400');
           setTimeout(()=>{
-            btn.textContent = 'Agregar al carrito';
+            btn.textContent = 'Add to cart';
             btn.classList.remove('bg-green-400');
             btn.classList.add('bg-[#39FF14]');
           }, 1200);
