@@ -1,5 +1,5 @@
 const PAGE_URL = process.env.NODE_ENV === 'production'
-    ? 'placeholder'
+    ? 'https://cono-cafe.onrender.com'
     : 'http://localhost:3000';
 
 
