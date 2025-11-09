@@ -6,6 +6,7 @@ const path = require('path');
 const cors = require('cors');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const bcrypt = require('bcrypt');
+const { MONGO_URI } = require('./config');
 
 
 //Controllers
@@ -15,13 +16,15 @@ const cancel = require('./controllers/cancel');
 const adminRouter = require('./controllers/admin');
 const auth = require('./controllers/auth');
 const successCheckout = require('./controllers/success');
+const { log } = require('console');
 //const ratesRouter = require('./controllers/rates');
+//const logoutRouter = require('./views/admin/logout');
 
 
 
 (async() => {
   try{
-    await mongoose.connect(process.env.MONGO_URI_TEST);
+    await mongoose.connect(MONGO_URI);
     console.log('Conectado a MongoDB');
   }  catch(error) {
     console.log(error);
@@ -31,7 +34,9 @@ const successCheckout = require('./controllers/success');
 
 //middleware
 app.use(cors());
-app.use(express.json());
+// increase payload limits to allow larger JSON bodies (e.g. base64 images)
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ limit: '10mb', extended: true }));
 
 //RUTAS FRONTEND
 app.use('/', express.static(path.resolve('views', 'home')));
@@ -59,11 +64,12 @@ app.use('/api/admin/products', express.json(), adminRouter);
 app.use('/api/auth', express.json(), auth.router);
 // app.use('/api/checkoutsuccess', successCheckout);
 app.get('/cancel', (req, res) => {
-  res.redirect('/');
+  res.redirect('/home_cart');
 });
 app.get('/admin', auth.requireAdmin, (req, res) => {
   res.sendFile(path.join(__dirname, 'views/admin'));
 });
+//app.use('/api/logout', logoutRouter);
 
 
 module.exports = app;

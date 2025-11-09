@@ -1,5 +1,28 @@
 const apiBase = '/api/admin/products';
 
+// Logout button handler
+// async function setupLogout(){
+//   const btn = document.getElementById('logoutBtn');
+//   if(!btn) return;
+//   btn.addEventListener('click', async ()=>{
+//     try{
+//       const res = await fetch('/api/auth/logout', { method: 'POST', credentials: 'same-origin' });
+//       if(res.ok){
+//         // redirect to login page
+//         window.location.href = '/login';
+//       } else {
+//         console.warn('Logout failed', res.status);
+//         alert('No se pudo cerrar sesión');
+//       }
+//     }catch(err){
+//       console.error('Logout error', err);
+//       alert('Error al cerrar sesión');
+//     }
+//   });
+// }
+
+// setupLogout();
+
 async function fetchProducts() {
   const res = await fetch(apiBase);
   return res.json();

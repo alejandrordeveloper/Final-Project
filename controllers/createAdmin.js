@@ -1,15 +1,18 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 require('dotenv').config();
-const User = require('./users.js'); // ahora está en la misma carpeta models
+const User = require('../models/users'); // modelo de usuario (carpeta models)
 
 async function createAdmin() {
-  const mongoUri = process.env.MONGO_URI || process.env.MONGO_URI_TEST;
-  if(!mongoUri){
-    console.error('MONGO_URI o MONGO_URI_TEST no está definido en el .env');
+  // Use the same selection logic as the app (config.js) so dev/prod match
+  const { MONGO_URI } = require('../config');
+  const mongoUri = MONGO_URI || process.env.MONGO_URI || process.env.MONGO_URI_TEST || process.env.MONGO_URI_PROD;
+  if (!mongoUri) {
+    console.error('No se encontró una MONGO_URI configurada. Verifica .env');
     process.exit(1);
   }
 
+  console.log('Conectando a MongoDB en:', mongoUri);
   await mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true }); // usa tu URI de Atlas
 
   const email = process.env.ADMIN_EMAIL;
