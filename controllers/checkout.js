@@ -3,6 +3,7 @@ const checkRouter = express.Router();
 const Stripe = require('stripe');
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 const Product = require('../models/product');
+const { PAGE_URL } = require('../config');
 
 // Expect body: { items: [{ id: '<productId>', quantity: 2 }, ... ] }
 checkRouter.post('/', async (req, res) => {
@@ -49,7 +50,7 @@ checkRouter.post('/', async (req, res) => {
         if (prod.image) {
           try {
             const isAbsolute = /^(https?:)?\/\//i.test(prod.image);
-            images = [ isAbsolute ? prod.image : `${process.env.BASE_URL.replace(/\/$/, '')}${prod.image.startsWith('/') ? '' : '/'}${prod.image}` ];
+            images = [ isAbsolute ? prod.image : `${PAGE_URL.replace(/\/$/, '')}${prod.image.startsWith('/') ? '' : '/'}${prod.image}` ];
           } catch(e){ images = undefined }
         }
 
@@ -73,8 +74,8 @@ checkRouter.post('/', async (req, res) => {
       line_items,
       mode: 'payment',
       shipping_address_collection: { allowed_countries: ['US', 'CA', 'VE', 'CO'] },
-      success_url: `${process.env.BASE_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.BASE_URL}/cancel`,
+      success_url: `${PAGE_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${PAGE_URL}/cancel`,
     });
 
     res.json({ url: session.url });
