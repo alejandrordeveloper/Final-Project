@@ -72,7 +72,7 @@ async function renderCart(){
 				<div class="mt-2 text-sm">Subtotal: <strong>${formatCurrencyFromCents(lineTotal)}</strong></div>
 			</div>
 			<div class="flex flex-col items-end gap-2">
-				<div class="flex items-center gap-2">
+				<div class="flex items-center gap-2" style="gap: 4px;">
 					<button class="decrease px-2 py-1 bg-white text-black rounded">-</button>
 					<div class="px-3 py-1 bg-white text-black rounded">${qty}</div>
 					<button class="increase px-2 py-1 bg-white text-black rounded">+</button>
