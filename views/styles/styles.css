@@ -2,6 +2,7 @@
 
 /* 1. Importar fuente */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap');
 
 /* 2. Variables de color */
 :root {
@@ -11,6 +12,8 @@
   --dark: #1B1013;
   --section-bg: #23191C;
   --card-bg: #1B1013;
+  --coffee-brown: #5d3a2e;
+  --muted-cream: #fff8f3;
 }
 
 /* 3. Reset y tipografía global */
@@ -392,17 +395,19 @@ footer select {
 .success-container {
   max-width: 900px;
   margin: 6rem auto 4rem; /* deja espacio para el header fijo */
-  background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(245,243,239,0.95));
+  background: linear-gradient(180deg, var(--muted-cream), rgba(245,243,239,0.95));
   border-radius: 12px;
   padding: 2.25rem;
   box-shadow: 0 10px 30px rgba(27,16,19,0.12);
   text-align: center;
 }
 .success-container .headline {
-  font-size: 2rem;
-  color: var(--dark);
+  font-size: 2.25rem;
+  color: var(--coffee-brown);
+  font-weight: 700;
   margin-bottom: 0.25rem;
   letter-spacing: 0.6px;
+  font-family: 'Playfair Display', serif;
 }
 .success-container .subtext {
   color: #6b6b6b;
@@ -419,7 +424,7 @@ footer select {
 }
 .order-summary h2 {
   margin: 0 0 0.75rem 0;
-  color: var(--dark);
+  color: var(--accent-green);
 }
 .order-summary ul {
   list-style: none;
@@ -436,6 +441,18 @@ footer select {
   color: #222;
 }
 .order-summary ul li:last-child { border-bottom: none; }
+.order-summary ul li .item-desc {
+  flex: 1 1 auto;
+  min-width: 0; /* allow truncation/wrapping */
+  color: var(--text-dark);
+  font-weight: 600;
+}
+.order-summary ul li .item-qty-price {
+  white-space: nowrap;
+  margin-left: 1rem;
+  color: var(--accent-green);
+  font-weight: 700;
+}
 .order-summary .total {
   font-size: 1.125rem;
   margin-top: 0.5rem;
@@ -446,6 +463,76 @@ footer select {
   color: #444;
   font-size: 0.95rem;
   margin-top: 0.5rem;
+}
+.order-summary {
+  /* permitir que textos largos (p. ej. session_id) puedan quebrar y no desborden la caja */
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* asegurar que los elementos internos puedan reducir su ancho y hacer wrap cuando están dentro de flex containers */
+.order-summary ul li {
+  min-width: 0; /* permite que el item reduzca su ancho en layouts flexibles */
+  flex-wrap: wrap; /* permitir que el contenido interno pase a la siguiente línea */
+}
+
+/* objetivos concretos: el session_id y el email deben poder partirse y respetar el ancho del contenedor */
+.order-summary .order-id strong,
+.order-summary .email-note strong {
+  display: inline-block;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-all; /* más agresivo para IDs largos sin guiones */
+  white-space: normal;
+  /* Estilo visual consistente con las cards oscuras del sitio: chip monoespaciado */
+  background: var(--card-bg);
+  color: #fff;
+  padding: 0.35rem 0.6rem;
+  border-radius: 8px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', 'Courier New', monospace;
+  font-size: 0.92rem;
+  box-shadow: 0 6px 18px rgba(27,16,19,0.06);
+}
+
+/* Si en el futuro añadimos un botón para copiar el ID, que siga el estilo del sitio */
+.order-summary .copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-left: 0.5rem;
+  background: linear-gradient(90deg, var(--accent-green), #6dfc82 60%);
+  color: #07140a;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(4,249,67,0.12);
+}
+
+/* Responsive: make chips full width on small screens and stack copy button */
+@media (max-width: 480px) {
+  .order-summary .order-id strong,
+  .order-summary .email-note strong {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .order-summary .copy-btn {
+    display: inline-flex;
+    margin-left: 0;
+    margin-top: 0.5rem;
+  }
+  .order-summary .order-id,
+  .order-summary .email-note { display: flex; flex-direction: column; gap: 0.5rem; }
+}
+
+/* pequeño ajuste visual en móviles: reducir ligeramente el tamaño del order-id para ahorrar espacio */
+@media (max-width: 420px) {
+  .order-summary .order-id,
+  .order-summary .email-note {
+    font-size: 0.95rem; /* fallback para compatibilidad visual */
+  }
 }
 .btn {
   display: inline-block;
@@ -469,6 +556,17 @@ footer select {
 
 /* Accessibility tweaks */
 .order-summary ul li, .order-summary .total { line-height: 1.4; }
+
+/* Subtle accent line under headline to add brand feel */
+.success-container .headline::after {
+  content: '';
+  display: block;
+  width: 64px;
+  height: 4px;
+  margin: 0.55rem auto 0;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--coffee-brown), var(--accent-green));
+}
 
 /* ==========================
    Estilos específicos: vista de tienda (shop_view)
