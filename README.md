@@ -53,20 +53,6 @@ Si quieres que incorpore estas imágenes directamente en alguna vista estática 
 - A MongoDB instance (Atlas recommended)
 - (Optional) Stripe account and secret key for payments
 
-## Environment variables
-
-Create a `.env` file in the repository root with at least these variables:
-
-```
-MONGO_URI_TEST=<your-mongo-uri-for-dev>
-MONGO_URI_PROD=<your-mongo-uri-for-prod>
-STRIPE_SECRET_KEY=<stripe-secret>
-BASE_URL=http://localhost:3000
-ADMIN_EMAIL=admin@cono.cafe
-ADMIN_PASSWORD=Cono1234
-JWT_SECRET=<a-strong-jwt-secret>
-```
-
 Notes:
 - During development `npm run dev` the app uses the test URI (MONGO_URI_TEST) by default.
 - In production (`npm run start`) the app uses the production URI (MONGO_URI_PROD).
