@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/styles/output.css" />
+    <link rel="stylesheet" href="/styles/styles.css" />
+    <title>Sign Up</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Montserrat", sans-serif;
+      }
+
+      body {
+        background-color: #c9d6ff;
+        background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        height: 100vh;
+      }
+
+      .container {
+        background-color: #fff;
+        border-radius: 30px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+        position: relative;
+        overflow: hidden;
+        width: 680px; /* reduced width to cut empty space */
+        max-width: calc(100% - 48px);
+        min-height: 480px;
+        margin: 0 auto; /* ensure centered in narrow viewports */
+        padding: 28px; /* inner padding so content isn't flush to edges */
+      }
+
+      .container p {
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.3px;
+        margin: 20px 0;
+      }
+
+      .container span {
+        font-size: 12px;
+      }
+
+      .container a {
+        color: #333;
+        font-size: 13px;
+        text-decoration: none;
+        margin: 15px 0 10px;
+      }
+
+      .container button {
+        background-color: #907c4a;
+        color: #fff;
+        font-size: 12px;
+        padding: 10px 45px;
+        border: 1px solid transparent;
+        border-radius: 8px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        margin-top: 10px;
+        cursor: pointer;
+      }
+
+      .container button.hidden {
+        background-color: transparent;
+        border-color: #fff;
+      }
+
+      .container form {
+        background-color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        padding: 8px 12px;
+        height: 100%;
+        box-sizing: border-box;
+      }
+
+      /* limitar ancho de los inputs dentro del formulario y centrar */
+      .form-inner {
+        width: 100%;
+        max-width: 420px; /* tamaño máximo del formulario */
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+      }
+
+      .container input {
+        background-color: #eee;
+        border: none;
+        margin: 8px 0;
+        padding: 10px 15px;
+        font-size: 13px;
+        border-radius: 8px;
+        width: 100%;
+        outline: none;
+        color: #000; /* typed text should be visible in black */
+        box-sizing: border-box;
+      }
+
+      .container input::placeholder {
+        color: rgba(0, 0, 0, 0.5);
+      }
+
+      /* estado visual */
+      input.valid {
+        border-color: #16a34a; /* verde */
+        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12);
+        outline: none;
+      }
+
+      input.invalid {
+        border-color: #dc2626; /* rojo */
+        box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.08);
+        outline: none;
+      }
+
+      /* mensaje de error pequeño */
+      .field-error {
+        color: #dc2626;
+        font-size: 12px;
+        margin-top: 6px;
+        display: none;
+      }
+      .field-error.active {
+        display: block;
+      }
+
+      /* deshabilitar botón visualmente */
+      button[disabled] {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+
+      .form-container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px 12px;
+      }
+
+      .sign-up {
+        width: 100%;
+        max-width: 520px;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+      }
+
+      .sign-up form { width: 100%; max-width: 420px; }
+
+      /* center text of headings and helper text */
+      .sign-up h1, .sign-up span { text-align: center; }
+
+      .social-icons {
+        margin: 20px 0;
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+      }
+
+      .social-icons a {
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" id="container">
+        <!-- Botón fijo arriba-izquierda para volver al home -->
+        <a href="/" aria-label="Volver al inicio" style="position:absolute;left:16px;top:16px;background:#f3f3f3;color:#111;padding:8px 14px;border-radius:8px;text-decoration:none;font-weight:600;z-index:1100;">← Inicio</a>
+        <div class="form-container sign-up">
+            <form>
+                <h1>Create Account</h1>
+                <div class="social-icons">
+                    <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
+                </div>
+                <span>or use your email for registeration</span>
+                <input id="signup-name" type="text" placeholder="Name">
+                <div id="signup-name-error" class="field-error" aria-live="polite"></div>
+
+                <input id="signup-email" type="email" placeholder="Email">
+                <div id="signup-email-error" class="field-error" aria-live="polite"></div>
+
+                <input id="signup-password" type="password" placeholder="Password">
+                <div id="signup-password-error" class="field-error" aria-live="polite"></div>
+
+                <input id="signup-confirm" type="password" placeholder="Confirm Password">
+                <div id="signup-confirm-error" class="field-error" aria-live="polite"></div>
+
+                <button id="signup-submit" type="submit" disabled>Sign Up</button>
+            </form>
+        </div>
+        <!-- Removed sign-in and toggle panels: this page only contains the Sign Up form -->
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>

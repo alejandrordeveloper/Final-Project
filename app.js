@@ -49,6 +49,7 @@ app.use('/checkout', express.static(path.resolve('views', 'checkout')));
 // protect admin static files with requireAdmin middleware
 app.use('/admin', auth.requireAdmin, express.static(path.resolve('views', 'admin')));
 app.use('/shop_view', express.static(path.resolve('views', 'shop_view')))
+app.use('/signup', express.static(path.resolve('views', 'signup')));
 
 
 
@@ -70,6 +71,7 @@ app.get('/admin', auth.requireAdmin, (req, res) => {
   res.sendFile(path.join(__dirname, 'views/admin'));
 });
 //app.use('/api/logout', logoutRouter);
+
 
 
 module.exports = app;

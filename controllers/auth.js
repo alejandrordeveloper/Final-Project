@@ -82,4 +82,41 @@ router.post('/logout', (req, res) => {
   res.json({ ok: true });
 });
 
+// Endpoint de registro (signup)
+router.post('/register', async (req, res) => {
+  try {
+    const { name, email, password } = req.body || {};
+    if (!email || !password) {
+      return res.status(400).json({ error: 'Email y password requeridos' });
+    }
+
+    const existing = await User.findOne({ email: email.toLowerCase().trim() }).exec();
+    if (existing) return res.status(409).json({ error: 'El usuario ya existe' });
+
+    const passwordHash = await bcrypt.hash(password, 10);
+    const user = await User.create({
+      email: email.toLowerCase().trim(),
+      passwordHash,
+      role: 'user'
+    });
+
+    // Generar JWT y enviar cookie (autologin después del registro)
+    const token = jwt.sign(
+      { userId: user._id.toString(), email: user.email, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: process.env.JWT_EXPIRES_IN || '1h' }
+    );
+
+    res.setHeader(
+      'Set-Cookie',
+      `token=${encodeURIComponent(token)}; HttpOnly; Path=/; SameSite=Lax; Max-Age=3600`
+    );
+
+    res.status(201).json({ ok: true, redirect: '/' });
+  } catch (err) {
+    console.error('Register error', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 module.exports = { router, requireAdmin };
