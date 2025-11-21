@@ -7,6 +7,10 @@ const { PAGE_URL } = require('../config');
 
 // Expect body: { items: [{ id: '<productId>', quantity: 2 }, ... ] }
 checkRouter.post('/', async (req, res) => {
+  let aborted = false;
+  const onAbort = ()=>{ aborted = true; console.warn('Client aborted the request (req.aborted)'); };
+  req.on && req.on('aborted', onAbort);
+
   try {
     const items = Array.isArray(req.body && req.body.items) ? req.body.items : [];
 
@@ -50,8 +54,17 @@ checkRouter.post('/', async (req, res) => {
         let images = undefined;
         if (prod.image) {
           try {
-            const isAbsolute = /^(https?:)?\/\//i.test(prod.image);
-            images = [ isAbsolute ? prod.image : `${PAGE_URL.replace(/\/$/, '')}${prod.image.startsWith('/') ? '' : '/'}${prod.image}` ];
+            const raw = String(prod.image || '');
+            const isDataUrl = /^data:/i.test(raw);
+            const isAbsolute = /^(https?:)?\/\//i.test(raw);
+            const candidate = isAbsolute ? raw : `${PAGE_URL.replace(/\/$/, '')}${raw.startsWith('/') ? '' : '/'}${raw}`;
+            // Stripe restricts image URLs length and doesn't accept data: URIs — skip if too long or data URL
+            if (isDataUrl || candidate.length > 2048) {
+              console.warn(`Skipping product image for Stripe (data URL or too long) product=${prod.name} len=${candidate.length} dataUrl=${isDataUrl}`);
+              images = undefined;
+            } else {
+              images = [ candidate ];
+            }
           } catch(e){ images = undefined }
         }
 
@@ -70,6 +83,8 @@ checkRouter.post('/', async (req, res) => {
       }
     }
 
+    const stripeStart = Date.now();
+    console.log('Creating Stripe session, line_items count=', line_items.length);
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items,
@@ -78,11 +93,25 @@ checkRouter.post('/', async (req, res) => {
       success_url: `${PAGE_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${PAGE_URL}/cancel`,
     });
+    const stripeEnd = Date.now();
+    console.log(`Stripe session created in ${stripeEnd - stripeStart}ms`);
+    if (aborted) {
+      console.warn('Not sending response because client disconnected after Stripe returned.');
+      return;
+    }
 
-    res.json({ url: session.url });
+    return res.json({ url: session.url });
   } catch (error) {
-    console.error('Stripe error:', error);
-    res.status(500).json({ error: 'Error al crear la sesión de pago' });
+    console.error('Stripe/create-session error:', error && error.message ? error.message : error);
+    if (aborted) {
+      console.warn('Client had aborted the request; skipping response.');
+      return;
+    }
+    const status = (error && error.statusCode) ? error.statusCode : 500;
+    res.status(status).json({ error: 'Error al crear la sesión de pago' });
+  }
+  finally {
+    req.off && req.off('aborted', onAbort);
   }
 });
 
