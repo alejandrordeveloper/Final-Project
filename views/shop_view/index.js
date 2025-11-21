@@ -84,6 +84,22 @@ async function loadProducts(){
       }
     });
 
+    // If the page was opened with ?buy=ProductName, try to find that product, add to cart and go to cart
+    try{
+      const params = new URLSearchParams(window.location.search);
+      const buyParam = params.get('buy');
+      if(buyParam){
+        const q = decodeURIComponent(buyParam).toLowerCase();
+        const matched = products.find(prod => (prod.name||'').toLowerCase().includes(q));
+        if(matched){
+          // add to cart and redirect to cart page
+          addToCart(matched);
+          window.location.href = '../home_cart';
+          return;
+        }
+      }
+    }catch(e){ /* ignore */ }
+
   }catch(err){
     console.error(err);
     grid.innerHTML = '<p class="text-sm text-red-600">Error cargando productos.</p>';

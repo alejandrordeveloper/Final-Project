@@ -134,10 +134,10 @@ function removeItem(id){
 
 document.getElementById('payButton').addEventListener('click', async function(){
 	const cart = getCart();
+	// Send only product ids and quantities to the server so the server
+	// can look up prices and validate stock securely.
 	const items = Object.values(cart || {}).map(i => ({
 		id: i.id,
-		name: i.name,
-		unit_amount: i.price, // cents
 		quantity: i.qty
 	}));
 
@@ -151,11 +151,15 @@ document.getElementById('payButton').addEventListener('click', async function(){
 		if(res && res.data && res.data.url){
 			window.location.href = res.data.url;
 		} else {
-			alert('No se pudo crear la sesión de pago');
+			const msg = (res && res.data && res.data.error) ? res.data.error : 'No se pudo crear la sesión de pago';
+			alert(msg);
 		}
 	}catch(err){
 		console.error(err);
-		alert('Error al iniciar pago');
+		// Try to show server-provided message (e.g. "Stock insuficiente para ...")
+		const serverMsg = err && err.response && err.response.data && err.response.data.error;
+		const fallback = (err && err.message) ? err.message : 'Error al iniciar pago';
+		alert(serverMsg || fallback);
 	}
 });
 

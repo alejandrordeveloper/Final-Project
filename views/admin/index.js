@@ -90,22 +90,38 @@ async function render() {
         if(!prodEl) return;
   // fetch latest product from list
   const p = (await fetchProducts()).find(x=>x._id===id);
-        // build form HTML (añadimos opción para subir imagen y preview)
+        // build form HTML using the same structure/styles as the "Agregar producto" form
         const formHtml = `
-          <div class="w-full">
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              <input class="border rounded px-2 py-1" id="edit-name-${id}" value="${escapeHtml(p.name)}" />
-              <input class="border rounded px-2 py-1" id="edit-price-${id}" value="${centsToDollars(p.price)}" />
-              <input class="border rounded px-2 py-1" id="edit-stock-${id}" value="${p.stock}" />
-              <input class="border rounded px-2 py-1" id="edit-image-${id}" value="${p.image||''}" />
-              <label class="text-sm mt-1">O subir imagen</label>
-              <input id="edit-image-file-${id}" type="file" accept="image/*" class="border rounded px-2 py-1" />
-              <img id="edit-image-preview-${id}" src="${p.image||''}" alt="preview" style="max-width:120px; display:${p.image? 'block' : 'none'}; border-radius:6px;" />
-              <textarea class="border rounded px-2 py-1 sm:col-span-2" id="edit-desc-${id}">${p.description||''}</textarea>
-            </div>
-            <div class="mt-2 flex gap-2 justify-end">
-              <button id="save-${id}" class="px-3 py-1 bg-green-600 text-white rounded">Save</button>
-              <button id="cancel-${id}" class="px-3 py-1 bg-gray-300 rounded">Cancel</button>
+          <div class="w-full max-w-3xl mx-auto">
+            <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <div>
+                <label class="text-sm font-medium">Nombre</label>
+                <input id="edit-name-${id}" value="${escapeHtml(p.name)}" class="mt-1 block w-full border rounded px-3 py-2" />
+              </div>
+              <div>
+                <label class="text-sm font-medium">Precio (USD)</label>
+                <input id="edit-price-${id}" type="number" step="0.01" value="${centsToDollars(p.price)}" class="mt-1 block w-full border rounded px-3 py-2" />
+              </div>
+              <div>
+                <label class="text-sm font-medium">Stock</label>
+                <input id="edit-stock-${id}" type="number" min="0" value="${p.stock}" class="mt-1 block w-full border rounded px-3 py-2" />
+              </div>
+              <div>
+                <label class="text-sm font-medium">Imagen (URL)</label>
+                <input id="edit-image-${id}" type="url" value="${escapeHtml(p.image||'')}" class="mt-1 block w-full border rounded px-3 py-2" />
+                <label class="text-sm font-medium mt-2 block">O subir imagen</label>
+                <input id="edit-image-file-${id}" type="file" accept="image/*" class="mt-1 block w-full" />
+                <img id="edit-image-preview-${id}" alt="preview" style="display:${p.image? 'block' : 'none'}; max-width:140px; margin-top:0.5rem; border-radius:6px;" src="${p.image||''}" />
+              </div>
+              <div class="sm:col-span-2">
+                <label class="text-sm font-medium">Descripción</label>
+                <textarea id="edit-desc-${id}" rows="3" class="mt-1 block w-full border rounded px-3 py-2">${escapeHtml(p.description||'')}</textarea>
+              </div>
+
+              <div class="sm:col-span-2 text-right">
+                <button id="save-${id}" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700" style="cursor:pointer;">Guardar</button>
+                <button id="cancel-${id}" class="inline-flex items-center px-4 py-2 bg-gray-300 rounded ml-2" style="cursor:pointer;">Cancelar</button>
+              </div>
             </div>
           </div>
         `;

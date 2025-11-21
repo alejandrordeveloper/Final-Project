@@ -11,7 +11,8 @@ checkRouter.post('/', async (req, res) => {
     const items = Array.isArray(req.body && req.body.items) ? req.body.items : [];
 
     // Simple mode: client sent full product info (name + unit_amount in cents + quantity)
-    const clientProvidedFull = items.length > 0 && items.every(i => i.name && (typeof i.unit_amount === 'number' || !isNaN(Number(i.unit_amount))) && i.quantity);
+    // NOTE: if client includes product IDs we always prefer the secure lookup mode
+    const clientProvidedFull = items.length > 0 && items.every(i => i.name && (typeof i.unit_amount === 'number' || !isNaN(Number(i.unit_amount))) && i.quantity) && items.every(i => !i.id);
 
     let line_items = [];
 
